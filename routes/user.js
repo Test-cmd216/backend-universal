@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import protect from '../middleware/auth.js';
+import validate from '../middleware/validate.js';
+import { userSchema } from '../models/userModel.js';
+import userController from '../controllers/userController.js';
+const router = Router();
+router.get('/', protect, userController.getAll);
+router.get('/:id', protect, userController.get);
+router.post('/', protect, validate(userSchema), userController.create);
+router.put('/:id', protect, validate(userSchema), userController.update);
+router.delete('/:id', protect, userController.delete);
+export default router;
