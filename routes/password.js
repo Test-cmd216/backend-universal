@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import protect from '../middleware/auth.js';
+import validate from '../middleware/validate.js';
+import { passwordSchema } from '../models/passwordModel.js';
+import passwordController from '../controllers/passwordController.js';
+const router = Router();
+router.get('/', protect, passwordController.getAll);
+router.get('/:id', protect, passwordController.get);
+router.post('/', protect, validate(passwordSchema), passwordController.create);
+router.put('/:id', protect, validate(passwordSchema), passwordController.update);
+router.delete('/:id', protect, passwordController.delete);
+export default router;
